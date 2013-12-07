@@ -1,0 +1,6 @@
+LAST=""
+
+for i; do
+	./exec.rb $i.f $i $LAST
+	LAST="$i"
+done

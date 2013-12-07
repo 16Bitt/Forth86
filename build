@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+echo "Compiling..."
+./chain DATA MATH IO LANG SYS test
+
+rm *.last
+rm *.names
+rm *.values
+
+echo "Assembling..."
+nasm -o img/bootsec.img -fbin BOOT.asm
+nasm -o img/core.bin -fbin NEXT.asm
+
+echo "Building disk image..."
+dd if=img/core.bin of=img/core.img bs=512 conv=sync
+dd if=/dev/zero of=img/space.bin bs=512 conv=sync count=4
+cat img/bootsec.img img/core.img img/space.bin > img/disk.img
+echo "Done."
+
+echo "Please check disk for changes:"
+ls -l img/

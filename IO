@@ -1,0 +1,76 @@
+
+lbl26:
+	FPOP AX 
+	MOV AH, 0x0E 
+	INT 0x10 
+	NEXT
+lbl27:
+FPOP AX 
+	MOV SI, AX 
+	MOV AH, 0x0E 
+WRITE_LOOP: 
+	LODSB 
+	OR AL, AL 
+	JZ WRITE_END 
+	CMP AL, 13 
+	JNZ NORETURN 
+	INT 0x10 
+	MOV AL, 10 
+	INT 0x10 
+NORETURN: 
+	INT 0x10 
+	JMP WRITE_LOOP 
+WRITE_END: 
+	NEXT
+lbl28:
+%include "HEX.asm" 
+	NEXT
+lbl29:	CLI 
+	HLT 
+	NEXT
+
+FLBL26:
+	dw FLBL25
+	db "EMIT",0
+	CALL 0:lbl26
+	NEXT
+FLBL27:
+	dw FLBL26
+	db "WRITE",0
+	CALL 0:lbl27
+	NEXT
+FLBL28:
+	dw FLBL27
+	db ".",0
+	CALL 0:lbl28
+	NEXT
+FLBL29:
+	dw FLBL28
+	db "HANG",0
+	CALL 0:lbl29
+	NEXT
+FLBL30:
+	dw FLBL29
+	db "NEWLINE",0
+lbl30:
+	db PUSHVAL
+	dw 13
+	CALL 0:CPUSHF
+	
+	CALL 0:lbl26
+	db PUSHVAL
+	dw 10
+	CALL 0:CPUSHF
+	
+	CALL 0:lbl26
+	NEXT
+FLBL31:
+	dw FLBL30
+	db "SPC",0
+lbl31:
+	db PUSHVAL
+	dw 32
+	CALL 0:CPUSHF
+	
+	CALL 0:lbl26
+	NEXT

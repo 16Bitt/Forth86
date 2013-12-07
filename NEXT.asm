@@ -1,0 +1,39 @@
+	[BITS 16]
+	[ORG 0x7E00]
+
+ENTRYPOINT:
+	STI
+	MOV SI, TEST_THIS
+	CALL DBG_PRINT
+	JMP STARTEXEC
+
+DBG_PRINT:
+	PUSHA
+	MOV AH, 0x0E
+DP_LOOP:
+	LODSB
+	OR AL, AL	
+	JZ DP_END
+	INT 0x10
+	JMP DP_LOOP
+DP_END:
+	POPA
+	RET
+
+%include "HEADER.h"
+%include "MATH"
+%include "IO"
+%include "DATA"
+%include "LANG"
+%include "SYS"
+%include "test"
+
+STARTEXEC:
+	MOV BP, STACK
+	MOV word [LAST], FLBL110
+
+	CALL lbl110
+
+TEST_THIS: db ">BOOTSTRAP PAYLOAD SUCCESSFUL",13,10,0
+
+ENDKERNEL:
