@@ -1,11 +1,11 @@
 ;String to integer conversion.
 ;I am so sorry for this disaster
 
-	FPOP SI
+	FPOP SI			;Get string pointer
 	
-	LODSB
+	LODSB			;Get first character
 	MOV DI, NUMTABLE
-	XCHG SI, DI
+	XCHG SI, DI		;I don't know? It works, though
 	MOV BL, AL
 NUMLOOP0:
 	LODSB
@@ -19,7 +19,7 @@ NUMLOOP0:
 	OR AX, SI
 	SHL AX, 4
 	MOV [NUMBERSAVE], AX
-	XCHG SI, DI
+	XCHG SI, DI		;This happens 4 times, once for each character
 	
 	LODSB
 	MOV DI, NUMTABLE
@@ -77,4 +77,4 @@ NUMLOOP3:
 	NEXT
 	
 NUMBERSAVE: dw 0
-NUMTABLE: db "0123456789ABCDEF",0
+NUMTABLE: db "0123456789ABCDEF",0	;Look up table
