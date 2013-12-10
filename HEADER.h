@@ -27,7 +27,7 @@ CPUSHF:
 ;HEAP: times 64 db 0
 %define MIRROR STACK+512
 ;MIRROR: times 16 db 0
-%define STRBUF MIRROR+128
+%define STRBUF MIRROR+513
 ;STRBUF: times 128 db 0
 
 STR_DAT: dw STRBUF
