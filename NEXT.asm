@@ -30,9 +30,9 @@ DP_END:
 
 STARTEXEC:
 	MOV BP, STACK			;Set up forth stack
-	MOV word [LAST], FLBL110	;Set LAST pointer to last word
+	MOV word [LAST], FLBL112	;Set LAST pointer to last word
 
-	CALL lbl110			;Call last word (GO)
+	CALL lbl112			;Call last word (GO)
 
 TEST_THIS: db ">BOOTSTRAP PAYLOAD SUCCESSFUL",13,10,0
 
