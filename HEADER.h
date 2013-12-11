@@ -22,12 +22,12 @@ CPUSHF:
 
 %define STACK ENDKERNEL
 ;STACK:	times 32 db 0
-%define DISK STRBUF+128
+%define DISK STRBUF+512
 %define HEAP DISK+512
 ;HEAP: times 64 db 0
 %define MIRROR STACK+512
 ;MIRROR: times 16 db 0
-%define STRBUF MIRROR+513
+%define STRBUF MIRROR+128
 ;STRBUF: times 128 db 0
 
 STR_DAT: dw STRBUF
